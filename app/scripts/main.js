@@ -28,38 +28,43 @@
             items: 1
         });
 
-        $('.feature .owl-carousel .item').on('mouseenter', function(e) {
-            var offset = $(this).offset();
+        $('.feature .owl-carousel .owl-item img').on('mouseover', function(e) {
 
-            if (offset.left >= 861.5) {
-                $(this).find(".feature-qr").css({
+            var owlItem = $(this).closest('.owl-item');
+
+            if(owlItem.index('.active') == 5) {
+                owlItem.find(".feature-qr").css({
                     left: '-100%'
                 }).show();
             } else {
-                $(this).find(".feature-qr").css({
+                owlItem.find('.feature-qr').css({
                     left: '100%'
-                }).show();
+                }).show()
             }
 
-            $(this).find(".feature-qr").velocity({
+            owlItem.find('.feature-qr').velocity({
                 opacity: 1
-            });
+            },{
+                duration: 10
+            })
         });
 
-        $('.feature .owl-carousel .item').on('mouseleave', function(e) {
-            var offset = $(this).offset();
+        $('.feature .owl-carousel .owl-item img').on('mouseout', function(e) {
             var _this = $(this);
-            $(this).find(".feature-qr").velocity({
+
+            var owlItem = $(this).closest('.owl-item');
+
+            owlItem.find('.feature-qr').velocity({
                 opacity: 0
             }, {
+                duration: 10,
                 complete: function() {
-                    _this.find(".feature-qr").css({
-                        left: '0%',
-                        right: '0%'
-                    });
-                    _this.find(".feature-qr").hide();
+                    owlItem.find(".feature-qr").css({
+                        left: "0%",
+                        right: "0%"
+                    }), owlItem.find(".feature-qr").hide()
                 }
-            });
+            })
         });
 
         $('#page-nav .nav a').on('click', function(e){
